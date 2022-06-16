@@ -17,13 +17,13 @@ import matplotlib.path as mpath
 #Directory des fichiers
 dire ="/home/delhaye/Documents/Travail Bac3/Temperature Europe/"
 #Chemin du fichier
-nc_file = dire+'tas_Amon_EC-Earth3_historical_r1i1p1f1_gr_merge_185001-201412.nc'
+nc_file = dire+'tasmax_Amon_EC-Earth3_historical_r1i1p1f1_gr_merge_185001-201412.nc'
 #Charge le fichier via Dataset
 fh = Dataset(nc_file, mode='r')
 
 print(fh)
 
-tas_hist= fh.variables['tas'][:]
+tas_hist= fh.variables['tasmax'][:]
 lon = fh.variables['lon'][:]
 lat = fh.variables['lat'][:]
 fh.close()
@@ -31,9 +31,9 @@ fh.close()
 tas_hist.shape
 
 #Charge le 2ème fichier (projection des températures 2015-2100)
-nc_file = dire+'tas_Amon_EC-Earth3_ssp585_r1i1p1f1_gr_merge_201501-210012.nc'
+nc_file = dire+'tasmax_Amon_EC-Earth3_ssp585_r1i1p1f1_gr_merge_201501-210012.nc'
 fh = Dataset(nc_file, mode='r')
-tas_ssp= fh.variables['tas'][:]
+tas_ssp= fh.variables['tasmax'][:]
 lon = fh.variables['lon'][:]
 lat = fh.variables['lat'][:]
 fh.close()
@@ -98,7 +98,7 @@ gl.ylocator = mticker.FixedLocator(np.arange(-90,91,10))
 #Colorbar en dessous de la carte
 cbar = plt.colorbar(cs,orientation="horizontal")
 #Légende
-cbar.set_label('August $^\circ$C $_{Historical}$',fontsize=16)
+cbar.set_label('Max T in August $^\circ$C $_{Historical}$',fontsize=16)
 #Taille de l'échelle
 cbar.ax.tick_params(labelsize=12)
 #Montre l'échelle que tous les 2 pas
@@ -143,7 +143,7 @@ fig,ax = plt.subplots(figsize=(12,6))
 ax.plot(np.arange(1850, 2015, 1),tas_bel1,'tab:blue',linestyle= '-')
 ax.plot(np.arange(2015, 2101, 1),tas_bel2,'tab:red',linestyle= '-')
 plt.xlabel('Year',fontsize=20)
-plt.ylabel('Mean T in Belgium in EC-Earth3',fontsize=20)
+plt.ylabel('Max T in Belgium in EC-Earth3',fontsize=20)
 plt.grid()
 plt.xticks(np.arange(1850, 2101, 50),fontsize=18)
 plt.yticks(np.arange(0, 35.1, 5),fontsize=18)
